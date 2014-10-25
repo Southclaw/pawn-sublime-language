@@ -159,7 +159,7 @@
 		{ "trigger": "OnVehiclePaintjob", "contents": "OnVehiclePaintjob(${1:playerid}, ${2:vehicleid}, ${3:paintjobid})" },
 		{ "trigger": "OnVehicleRespray", "contents": "OnVehicleRespray(${1:playerid}, ${2:vehicleid}, ${3:color1}, ${4:color2})" },
 		{ "trigger": "OnVehicleDamageStatusUpdate", "contents": "OnVehicleDamageStatusUpdate(${1:vehicleid}, ${2:playerid})" },
-		{ "trigger": "OnUnoccupiedVehicleUpdate", "contents": "OnUnoccupiedVehicleUpdate(${1:vehicleid}, ${2:playerid}, ${3:passenger_seat}, ${4:Float:new_x}, ${5:Float:new_y}, ${6:Float:new_z})" },
+		{ "trigger": "OnUnoccupiedVehicleUpdate", "contents": "OnUnoccupiedVehicleUpdate(${1:vehicleid}, ${2:playerid}, ${3:passenger_seat}, ${4:Float:new_x}, ${5:Float:new_y}, ${6:Float:new_z}, ${7:Float:veh_x}, ${8:Float:veh_y}, ${9:Float:veh_z})" },
 		{ "trigger": "OnPlayerSelectedMenuRow", "contents": "OnPlayerSelectedMenuRow(${1:playerid}, ${2:row})" },
 		{ "trigger": "OnPlayerExitedMenu", "contents": "OnPlayerExitedMenu(${1:playerid})" },
 		{ "trigger": "OnPlayerInteriorChange", "contents": "OnPlayerInteriorChange(${1:playerid}, ${2:newinteriorid}, ${3:oldinteriorid})" },
