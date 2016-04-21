@@ -667,7 +667,7 @@
 		</dict>
 		<key>ppline-directive</key>
 		<dict>
-			<key>begin</key> <string>^\s*(#)\s*(if|elseif|else|endif|pragma|line|define|undef|error|warning|section|assert|file)\b</string>
+			<key>begin</key> <string>^\s*(#)\s*(if|elseif|else|endif|pragma|line|define|undef|error|warning|section|assert|file|endinput)\b</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key> <dict> <key>name</key> <string>keyword.other.preprocessor.c</string> </dict>
@@ -682,7 +682,7 @@
 
 		<key>ppline-directive-invalid-usage</key>
 		<dict>
-			<key>match</key> <string>(^\s*(#)\s*(if|elseif|pragma|define|undef|include|tryinclude|endinput)\b)\s*?(\n|$)</string>
+			<key>match</key> <string>(^\s*(#)\s*(if|elseif|pragma|define|undef|include|tryinclude)\b)\s*?(\n|$)</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key> <dict> <key>name</key> <string>keyword.other.preprocessor.c</string> </dict>
