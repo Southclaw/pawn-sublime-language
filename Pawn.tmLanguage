@@ -526,6 +526,7 @@
 			<key>patterns</key>
 			<array>
 				<dict> <key>include</key> <string>#lex-core</string> </dict>
+				<dict> <key>include</key> <string>#lex-in-preprocessor</string> </dict>
 			</array>
 		</dict>
 		<key>ppline-directive-emit</key>
