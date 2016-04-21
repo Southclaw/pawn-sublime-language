@@ -33,11 +33,6 @@
 		<dict>
 			<key>patterns</key>
 			<array>
-				<dict> <key>include</key> <string>#special_block</string> </dict>
-
-				<dict> <key>include</key> <string>#typedef</string> </dict>
-				<dict> <key>include</key> <string>#type</string> </dict>
-
 				<dict> <key>include</key> <string>#lex</string> </dict>
 
 				<dict> <key>include</key> <string>#function</string> </dict>
@@ -45,33 +40,6 @@
 
 				<dict> <key>include</key> <string>#block</string> </dict>
 				<dict> <key>include</key> <string>#parens</string> </dict>
-			</array>
-		</dict>
-		<key>special_block</key>
-		<dict>
-			<key>begin</key> <string>(?x)
-				(?= \s*
-				    (?:
-				        (?: \b extern \b
-				            (?: "(\\.|[^"])*" | '(\\.|[^'])*' | /\*.*?\*/ | \s)* ) |
-				        (?: \b namespace \b
-				            (?: (?: /\*.*?\*/ | \s)* \b [A-Za-z_]\w*+ \b)?
-				            (?: /\*.*?\*/ | \s)* ) )
-				    \{ )
-			</string>
-			<key>end</key> <string>\}</string>
-			<key>patterns</key>
-			<array>
-				<dict> <key>include</key> <string>#lex</string> </dict>
-				<dict>
-					<key>begin</key> <string>\{</string>
-					<key>end</key> <string>(?=\})</string>
-					<key>name</key> <string>meta.block.special.c</string>
-					<key>patterns</key>
-					<array>
-						<dict> <key>include</key> <string>$base</string> </dict>
-					</array>
-				</dict>
 			</array>
 		</dict>
 		<!--
@@ -94,9 +62,6 @@
 			<key>name</key> <string>meta.block.c</string>
 			<key>patterns</key>
 			<array>
-				<dict> <key>include</key> <string>#typedef</string> </dict>
-				<dict> <key>include</key> <string>#type</string> </dict>
-
 				<dict> <key>include</key> <string>#lex</string> </dict>
 
 				<dict> <key>include</key> <string>#call</string> </dict>
@@ -123,129 +88,12 @@
 			<key>name</key> <string>meta.parens.c</string>
 			<key>patterns</key>
 			<array>
-				<dict> <key>include</key> <string>#type</string> </dict>
-
 				<dict> <key>include</key> <string>#lex</string> </dict>
 
 				<dict> <key>include</key> <string>#call</string> </dict>
 				<dict> <key>include</key> <string>#support</string> </dict>
 
 				<dict> <key>include</key> <string>$base</string> </dict>
-			</array>
-		</dict>
-
-		<key>typedef</key>
-		<dict>
-			<key>begin</key> <string>(?x) (?&lt;= \A typedef | \W typedef ) \b</string>
-			<key>end</key> <string>;</string>
-			<key>name</key> <string>meta.typedef.c</string>
-			<key>patterns</key>
-			<array>
-				<dict> <key>include</key> <string>#lex</string> </dict>
-				<dict> <key>include</key> <string>#type-definition</string> </dict>
-				<dict> <key>include</key> <string>#block</string> </dict>
-				<dict>
-					<key>match</key> <string>\s*\b([A-Za-z_]\w*+)(?=\s*[\[;])</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key> <dict> <key>name</key> <string>entity.name.type.typedef.c</string> </dict>
-					</dict>
-				</dict>
-			</array>
-		</dict>
-		<key>type</key>
-		<dict>
-			<key>patterns</key>
-			<array>
-				<dict> <key>include</key> <string>#type-declaration</string> </dict>
-				<dict> <key>include</key> <string>#type-definition</string> </dict>
-			</array>
-		</dict>
-		<key>type-declaration</key>
-		<dict>
-			<key>begin</key> <string>(?x)
-				(?&lt;= \A enum | \A (?:class|union) | \A struct |
-				        \W enum | \W (?:class|union) | \W struct ) \b
-				(?= (?:\s|/\*.*?\*/)*+
-				    ([A-Za-z_]\w*+)
-				    (?:\s|/\*.*?\*/)*+; )
-			</string>
-			<key>end</key>
-			<string>(?&lt;=;)</string>
-			<key>name</key> <string>meta.compound.c</string>
-			<key>patterns</key>
-			<array>
-				<dict> <key>include</key> <string>#lex</string> </dict>
-				<dict>
-					<key>match</key> <string>\s*\b([A-Za-z_]\w*+)\b</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key> <dict> <key>name</key> <string>entity.name.type.declaration.c</string> </dict>
-					</dict>
-				</dict>
-			</array>
-		</dict>
-		<key>type-definition</key>
-		<dict>
-			<key>begin</key> <string>(?x)
-				(?&lt;= \A enum | \A (?:class|union) | \A struct |
-				        \W enum | \W (?:class|union) | \W struct ) \b
-
-				# Negation of zero-length parts of the end pattern
-				# to prevent entering the rule if it's gonna exit immediately.
-				# (workaround ST2 bugs, see issue #10)
-				(?=\s*(?:[A-Za-z_({]|/[/*]|$))
-				(?! \s*\b(?: [A-Za-z_]\w*+ ) (?= \s* [\[;] ) )
-			</string>
-			<key>end</key>
-			<string>(?x)
-				(?: (?!\s*(?:[A-Za-z_({]|/[/*]|$))
-				  | (?= \s*\b(?: [A-Za-z_]\w*+ ) (?= \s* [\[;] ) )
-				  | (?&lt;!\})(?=
-				        # Prefer function definition over an attribute defined
-				        # through a macro, unless a block has been seen. That is:
-				        #   struct __packed __aligned(16) foo {...}; - function __aligned
-				        #   struct foo {...} __packed __aligned(16); - structure foo
-				        (?! \s* \b__attribute__\b )
-
-				        (?: ^
-				          | (?&lt;! (?&lt;!\w) new
-				                | (?&lt;!\w) (?:else|enum) | (?&lt;!\w) (?:class|union)
-				                | (?&lt;!\w) (?:struct|return|sizeof|typeof)
-				                | (?&lt;!\w) __typeof | (?&lt;!\w) __typeof__ )
-				            (?&lt;= \w ) \s
-
-				          | #  or type modifier / closing bracket before name
-				            (?&lt;= [^&amp;]&amp; | [*&gt;)}\]] ) ) \s*
-
-				        (?: [A-Za-z_]\w*+ | ::[^:] )++
-				        (?: (?&lt;= ^ operator | \W operator )  # C++ operator?
-				            (?: [-*&amp;&lt;&gt;=+!]+ | \(\) | \[\] ) )?
-				        (?:\s|/\*.*?\*/)*+ \( ) )
-			</string>
-			<key>name</key> <string>meta.compound.c</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key> <string>(?&lt;=\})</string>
-					<key>end</key> <string>(?!\s*(?:[A-Za-z_({]|/[/*]|$))</string>
-					<key>patterns</key>
-					<array>
-						<dict> <key>include</key> <string>#lex</string> </dict>
-						<dict> <key>include</key> <string>#block</string> </dict>
-						<dict> <key>include</key> <string>#parens</string> </dict>
-					</array>
-				</dict>
-				<dict> <key>include</key> <string>#lex</string> </dict>
-				<dict> <key>include</key> <string>#block</string> </dict>
-				<dict> <key>include</key> <string>#parens</string> </dict>
-				<dict>
-					<key>match</key> <string>\b([A-Za-z_]\w*+)(?=(?:\s|/\*.*?\*/)*+(?:\{|(//.*)?\\?$))</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key> <dict> <key>name</key> <string>entity.name.type.class.c entity.name.class.c</string> </dict>
-					</dict>
-				</dict>
 			</array>
 		</dict>
 
