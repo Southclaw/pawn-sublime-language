@@ -234,6 +234,7 @@
 				<dict> <key>include</key> <string>#ppline-undef</string> </dict>
 				<dict> <key>include</key> <string>#ppline-pragma-mark</string> </dict>
 				<dict> <key>include</key> <string>#ppline-include</string> </dict>
+				<dict> <key>include</key> <string>#ppline-error</string> </dict>
 				<dict> <key>include</key> <string>#ppline-directive</string> </dict>
 				<dict> <key>include</key> <string>#ppline-directive-obsolete</string> </dict>
 				<dict> <key>include</key> <string>#ppline-directive-emit</string> </dict>
@@ -500,6 +501,20 @@
 				</dict>
 			</array>
 		</dict>
+		<key>ppline-error</key>
+		<dict>
+			<key>begin</key> <string>^\s*(#)\s*(error|warning)\b</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key> <dict> <key>name</key> <string>keyword.other.preprocessor.include.c</string> </dict>
+			</dict>
+			<key>end</key> <string>(.*)|(?&lt;=$\n)(?&lt;!\\$\n)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key> <dict> <key>name</key> <string>string.quoted.double.c</string> </dict>
+			</dict>
+			<key>name</key> <string>meta.preprocessor.include.c meta.preprocessor.c.include</string>
+		</dict>
 		<key>ppline-pragma-mark</key>
 		<dict>
 			<key>begin</key> <string>(^\s*(#)\s*(pragma\s+(align|amxlimit|amxram|codepage|compress|ctrlchar|deprecated|dynamic|library|overlay|pack|rational|semicolon|tabsize|unused))\b)[\s&amp;&amp;[^\n]]*</string>
@@ -516,7 +531,7 @@
 		</dict>
 		<key>ppline-directive</key>
 		<dict>
-			<key>begin</key> <string>^\s*(#)\s*(if|elseif|else|endif|pragma|line|define|undef|error|warning|section|assert|file|endinput)\b</string>
+			<key>begin</key> <string>^\s*(#)\s*(if|elseif|else|endif|pragma|line|define|undef|section|assert|file|endinput)\b</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key> <dict> <key>name</key> <string>keyword.other.preprocessor.c</string> </dict>
