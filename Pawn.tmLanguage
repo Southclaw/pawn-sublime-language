@@ -388,6 +388,7 @@
 				<dict> <key>include</key> <string>#ppline-include</string> </dict>
 				<dict> <key>include</key> <string>#ppline-directive</string> </dict>
 				<dict> <key>include</key> <string>#ppline-directive-obsolete</string> </dict>
+				<dict> <key>include</key> <string>#ppline-directive-emit</string> </dict>
 				<dict> <key>include</key> <string>#ppline-invalid</string> </dict>
 				<dict> <key>include</key> <string>#ppline-any</string> </dict>
 			</array>
@@ -674,6 +675,34 @@
 			</dict>
 			<key>end</key> <string>(?&lt;=$\n)(?&lt;!\\$\n)</string>
 			<key>name</key> <string>meta.preprocessor.directive.c</string>
+			<key>patterns</key>
+			<array>
+				<dict> <key>include</key> <string>#lex-core</string> </dict>
+			</array>
+		</dict>
+		<key>ppline-directive-emit</key>
+		<dict>
+			<key>begin</key>
+			<string>(?x)
+				^\s*(\#|@)\s*(emit) #pre-processor directive
+				(\s+
+					([A-Z0-9a-z]+)
+					(
+						(\.)([A-Za-z]+)
+						((\.)([A-Za-z]+))?
+					)?
+				|\s*)
+			</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key> <dict> <key>name</key> <string>keyword.other.preprocessor.c</string> </dict>
+				<key>2</key> <dict> <key>name</key> <string>keyword.control.import.c</string> </dict>
+				<key>4</key> <dict> <key>name</key> <string>entity.name.function.preprocessor.c</string> </dict>
+				<key>6</key> <dict> <key>name</key> <string>punctuation.separator.parameters.c</string> </dict>
+				<key>7</key> <dict> <key>name</key> <string>entity.name.function.preprocessor.c</string> </dict>
+			</dict>
+			<key>end</key> <string>(?&lt;=$\n)(?&lt;!\\$\n)</string>
+			<key>name</key> <string>meta.preprocessor.directive.emit.c</string>
 			<key>patterns</key>
 			<array>
 				<dict> <key>include</key> <string>#lex-core</string> </dict>
