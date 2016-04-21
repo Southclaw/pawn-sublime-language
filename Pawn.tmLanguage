@@ -1311,7 +1311,7 @@
 					<key>match</key> <string>(?ix)
 						(?&lt;!\.) \b
 
-						[0-9]++
+						[0-9_]++
 
 						# any invalid chars
 						([0-9a-z]*?)
