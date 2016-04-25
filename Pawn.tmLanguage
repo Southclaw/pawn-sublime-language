@@ -949,13 +949,6 @@
 					</dict>
 				</dict>
 				<dict>
-					<key>match</key> <string>\s*\b(public|forward|native|char|const|static|stock)\b</string>
-					<key>captures</key>
-					<dict>
-						<key>1</key> <dict> <key>name</key> <string>storage.modifier.c</string> </dict>
-					</dict>
-				</dict>
-				<dict>
 					<key>match</key>
 					<string>^(?!case.*)\s*\b([A-Za-z_]\w*)\:\s*\b</string>
 					<key>name</key>
