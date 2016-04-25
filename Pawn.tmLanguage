@@ -1211,7 +1211,7 @@
 				</dict>
 				<dict>
 					<key>match</key> <string>(?ix)
-						(?&lt;!\.) \b
+						\b
 
 						[0-9][0-9_]*
 
@@ -1221,7 +1221,7 @@
 						# the remainder (after invalid chars, if any) and a type
 						[0-9]* (u?l{0,2}|lul?|llu)
 
-						\b (?!\.)
+						\b
 					</string>
 					<key>name</key> <string>constant.numeric.integer.decimal.c</string>
 					<key>captures</key>
