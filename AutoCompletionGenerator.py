@@ -235,7 +235,7 @@ def scan_contents(contents):
 					continue
 
 				else:
-					if c == ':':
+					if c == ':' or c == ' ':
 						db("extracted string is tag, starting again")
 						pos_function_name = -1
 						skip_until_valid_symbol_char = True
