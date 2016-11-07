@@ -183,6 +183,6 @@
 		{"trigger": "FCNPC_IsValidMovePoint", "contents": "FCNPC_IsValidMovePoint(${1:pathid}, ${2:pointid})"},
 		{"trigger": "FCNPC_GetMovePoint", "contents": "FCNPC_GetMovePoint(${1:pathid}, ${2:pointid}, ${3:Float:x}, ${4:Float:y}, ${5:Float:z})"},
 		{"trigger": "FCNPC_GetNumberMovePoint", "contents": "FCNPC_GetNumberMovePoint(${1:pathid})"},
-		{"trigger": "FCNPC_GoByMovePath", "contents": "FCNPC_GoByMovePath(${1:npcid}, ${2:pathid}, ${3:type = MOVE_TYPE_AUTO}, ${4:Float:speed = MOVE_SPEED_AUTO}, ${5:bool:UseMapAndreas = false}, ${6:Float:radius = 0.0}, ${7:bool:setangle = true})"},
+		{"trigger": "FCNPC_GoByMovePath", "contents": "FCNPC_GoByMovePath(${1:npcid}, ${2:pathid}, ${3:type = MOVE_TYPE_AUTO}, ${4:Float:speed = MOVE_SPEED_AUTO}, ${5:bool:UseMapAndreas = false}, ${6:Float:radius = 0.0}, ${7:bool:setangle = true})"}
 	]
 }
